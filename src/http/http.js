@@ -3,21 +3,7 @@ import store from '../store/store.js'
 import * as types from '../store/types.js'
 import router from '../router/index.js'
 
-axios.defaults.timeout = 5;
-axios.defaults.baseURL = '';
 
-
-// http request 拦截器
-axios.interceptors.request.use(
-    config => {
-        if (store.state.token) {
-            config.headers.Authorization = `token ${store.state.token}`;
-        }
-        return config;
-    },
-    err => {
-        return Promise.reject(err);
-    });
 
 // http response 拦截器
 axios.interceptors.response.use(

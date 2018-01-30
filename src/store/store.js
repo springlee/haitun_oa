@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         token: null,
-        title: '未登录'
+        userInfo: null,
+        isLoading: false,
     },
     mutations: {
         [types.LOGIN]: (state, data) => {
@@ -17,8 +18,8 @@ export default new Vuex.Store({
             localStorage.removeItem('token');
             state.token = null
         },
-        [types.TITLE]: (state, data) => {
-            state.title = data;
+        [types.LOADING]:(state, data)=> {
+            state.isLoading = data.isLoading
         }
     }
 })
