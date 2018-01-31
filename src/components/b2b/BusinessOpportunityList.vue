@@ -87,9 +87,8 @@
 </template>
 
 <script>
-    import {XHeader, Cell, CellBox, Search, Group, Checker, CheckerItem, Flexbox, FlexboxItem} from 'vux'
+    import {XHeader, Cell, CellBox, Search, Group, Checker, CheckerItem, Flexbox, FlexboxItem,querystring} from 'vux'
     import InfiniteLoading from 'vue-infinite-loading'
-    import qs from 'qs'
     import api from '../../constant/api'
     export default {
         components: {XHeader, Cell, CellBox, Search, Group, Checker, CheckerItem, Flexbox, FlexboxItem,InfiniteLoading},
@@ -129,12 +128,12 @@
                     keywords: this.keywords ? this.keywords:'',
                     status: this.status!==-1 ? this.status:'',
                 };
-                this.axios.post(api.b2bUrl+api.businessOpportunityList, qs.stringify(params))
+                this.axios.post(api.b2bUrl+api.businessOpportunityList, querystring.stringify(params))
                     .then(response => {
                         if (response.data.length === 0) {
                             $state.complete();
                         }
-                        this.dataList = this.dataList.concat(response.data)
+                        this.dataList = this.dataList.concat(response.data);
                         $state.loaded();
                         that.page++;
                     })
@@ -202,7 +201,7 @@
     }
 
     .title{
-        color: #000000;
+        color: #696969;
     }
     .status-title-lock{
         color: #9174e1;

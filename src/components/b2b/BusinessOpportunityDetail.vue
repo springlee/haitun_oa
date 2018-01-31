@@ -39,47 +39,47 @@
             <div v-for="item in goods ">
                 <group label-width="5rem">
                     <cell primary="content" value-align="left" align-items="flex-start">
-                        <div slot="title">类目</div>
+                        <div slot="title" class="title-lm">类目</div>
                         <div>{{item.category}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">品牌</div>
+                        <div slot="title" class="title-lm">品牌</div>
                         <div>{{item.brand}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">产品名称</div>
+                        <div slot="title" class="title-lm">产品名称</div>
                         <div>{{item.goods_name}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">条码</div>
+                        <div slot="title" class="title-lm">条码</div>
                         <div>{{item.goods_sn}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">数量</div>
+                        <div slot="title" class="title-lm">数量</div>
                         <div>{{item.num}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">保质期</div>
+                        <div slot="title" class="title-lm">保质期</div>
                         <div>{{item.expireday}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">货物地点</div>
+                        <div slot="title" class="title-lm">货物地点</div>
                         <div>{{item.address}}</div>
                     </cell>
                     <cell primary="content" value-align="left" align-items="flex-start">
-                        <div slot="title">配比</div>
+                        <div slot="title" class="title-lm">配比</div>
                         <div>{{item.patch}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">链路层级</div>
+                        <div slot="title" class="title-lm">链路层级</div>
                         <div>{{item.link_level}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">软文链接</div>
+                        <div slot="title" class="title-lm">软文链接</div>
                         <div>{{item.url}}</div>
                     </cell>
                     <cell primary="content" align-items="flex-start" value-align="left">
-                        <div slot="title">备注</div>
+                        <div slot="title" class="title-lm">备注</div>
                         <div>{{item.remark}}</div>
                     </cell>
                 </group>
@@ -90,7 +90,7 @@
             <div>
                 <group label-width="5rem">
                     <cell primary="content" value-align="left" align-items="flex-start">
-                        <div slot="title">下载附件</div>
+                        <div slot="title" class="title-lm">下载附件</div>
                         <div v-html="attached"></div>
                     </cell>
                 </group>
@@ -101,8 +101,7 @@
 </template>
 
 <script>
-    import {XHeader, Cell, Group, Flexbox, FlexboxItem, XButton} from 'vux'
-    import qs from 'qs'
+    import {XHeader, Cell, Group, Flexbox, FlexboxItem, XButton ,querystring} from 'vux'
     import api from '../../constant/api'
 
     export default {
@@ -115,7 +114,7 @@
                     name: userInfo.username
                 }
                 let that = this;
-                this.axios.post(api.b2bUrl + api.businessOpportunityDetail, qs.stringify(params))
+                this.axios.post(api.b2bUrl + api.businessOpportunityDetail, querystring.stringify(params))
                     .then(response => {
                         if(response.data){
                             that.business = response.data.business
@@ -145,6 +144,9 @@
     .title {
         color: #26ade3;
     }
+    .title-lm{
+        color: #696969;
+    }
 
     .status-title-lock {
         color: #9174e1;
@@ -163,6 +165,6 @@
     }
 
     .container {
-        margin-top: 3rem;
+        margin-top: 2.9rem;
     }
 </style>

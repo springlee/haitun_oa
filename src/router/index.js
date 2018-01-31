@@ -5,9 +5,11 @@ import store from '../store/store'
 import * as types from '../store/types'
 import axios from '../http/http.js'
 import api from '../constant/api.js'
-import qs from 'qs'
+import {querystring,ToastPlugin} from 'vux'
+
 
 Vue.use(VueRouter);
+Vue.use(ToastPlugin);
 
 const routes = [
         {
@@ -102,7 +104,7 @@ router.beforeEach((to, from, next) => {
                 system:system,
                 ip:'127.0.0.1',
             }
-            axios.post(api.backendUrl+api.ssoUser, qs.stringify(params))
+            axios.post(api.backendUrl+api.ssoUser, querystring.stringify(params))
                 .then(response => {
                     if(response.data.success){
                         let userInfo = response.data.data;
@@ -114,7 +116,12 @@ router.beforeEach((to, from, next) => {
                                 if(userInfo.permission_urls.indexOf(to.meta.authUrl)!==-1){
                                     next();
                                 }else {
-                                    alert('你没有权限访问！！！');
+                                    Vue.$vux.toast.show({
+                                        type: 'warn',
+                                        position: 'middle',
+                                        text: '你没有权限访问！！！',
+                                        width:'10rem'
+                                    })
                                     store.commit(types.LOADING, {isLoading: false})
                                     next({
                                         path: '/user/profile',

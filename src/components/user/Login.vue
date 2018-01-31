@@ -22,8 +22,7 @@
 </template>
 
 <script>
-    import qs from 'qs'
-    import { Group,GroupTitle ,XInput,XButton,Toast,XHeader} from 'vux'
+    import { Group,GroupTitle ,XInput,XButton,Toast,XHeader,querystring} from 'vux'
     import api from '../../constant/api'
     import * as types from '../../store/types';
     export default {
@@ -47,7 +46,7 @@
                     ip:'127.0.0.1',
                 }
                 let that = this;
-                this.axios.post(api.backendUrl+api.login, qs.stringify(params))
+                this.axios.post(api.backendUrl+api.login, querystring.stringify(params))
                     .then(response => {
                         if(response.data.success){
                             let userinfo  = response.data.data;
