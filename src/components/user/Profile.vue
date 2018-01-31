@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="name">{{userInfo.name}}</div>
+        <div class="name">当前用户:{{userInfo.name}}</div>
         <div class="logo">
             <img src="../../assets/icon/logo@3x.png"/>
             <p>欢迎使用海豚工作平台系统</p>
@@ -14,40 +14,39 @@
                     </grid-item>
                     <grid-item link="/" >
                         <img slot="icon" src="../../assets/icon/icon_system@3x.png">
-                        <span slot="label" class="system_name">商机互动</span>
+                        <span slot="label" class="system_name">敬请期待</span>
                     </grid-item>
                     <grid-item link="/" >
                         <img slot="icon" src="../../assets/icon/icon_system@3x.png">
-                        <span slot="label" class="system_name">商机互动</span>
-                    </grid-item>
-                </grid>
-                <grid>
-                    <grid-item link="/" >
-                        <img slot="icon" src="../../assets/icon/icon_system@3x.png">
-                        <span slot="label" class="system_name">商机互动</span>
-                    </grid-item>
-                    <grid-item link="/" >
-                        <img slot="icon" src="../../assets/icon/icon_system@3x.png">
-                        <span slot="label" class="system_name">商机互动</span>
-                    </grid-item>
-                    <grid-item link="/" >
-                        <img slot="icon" src="../../assets/icon/icon_system@3x.png">
-                        <span slot="label" class="system_name">商机互动</span>
+                        <span slot="label" class="system_name">敬请期待</span>
                     </grid-item>
                 </grid>
             </group>
+
+            <div class="login-form">
+                <x-button class="login-form-button" type="primary" action-type="button" @click.native="login_out" >退出登录</x-button>
+            </div>
         </div>
 
     </div>
 </template>
 
 <script>
-    import { Group,Grid,GridItem} from 'vux'
+    import { Group,Grid,GridItem,XButton} from 'vux'
+    import * as types from '../../store/types';
     export default {
-        components: {Group, Grid, GridItem},
+        components: {Group, Grid, GridItem ,XButton},
         data() {
             return {
                 userInfo:{}
+            }
+        },
+        methods: {
+            login_out() {
+                this.$store.commit(types.LOGOUT);
+                this.$router.replace({
+                    path: '/user/login',
+                })
             }
         },
         mounted() {
@@ -77,5 +76,15 @@
     .name{
         text-align: right;
         margin: 2rem  2rem 0 0;
+    }
+    .login-form{
+        padding: 2rem;
+    }
+    .login-form .login-form-button {
+        margin-top: 2rem;
+        background-color: #26ade3 ;
+    }
+    .login-form .login-form-button:not(.weui-btn_disabled):active{
+        background-color: #26ade3 ;
     }
 </style>

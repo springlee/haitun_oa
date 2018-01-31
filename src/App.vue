@@ -16,19 +16,9 @@
             Loading,ViewBox
         },
         computed: mapState({
-            token: state => state.token,
             isLoading: state => state.isLoading
         }),
-        methods: {
-            logout(){
-                this.$store.commit(types.LOGOUT);
-                this.$router.push({
-                    path: '/'
-                });
-            }
-        }
     }
-
 </script>
 <style lang="less">
   @import "~vux/src/styles/reset.less";
@@ -44,6 +34,13 @@
 
   .vux-header{
     background: linear-gradient(to right, #57b7fe,#43d8fe)!important;
+  }
+  .header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    max-width: 600px;
+    z-index: 10;
   }
   .weui-search-bar__cancel-btn{
     color:#26ade3 !important;
@@ -74,7 +71,6 @@
       width: 60px;
       height: 60px;
   }
-
   .fade-enter-active, .fade-leave-active {
     transition: opacity .2s
   }

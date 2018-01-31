@@ -23,11 +23,11 @@
 
 <script>
     import qs from 'qs'
-    import { Group,GroupTitle ,XInput,XButton,Toast} from 'vux'
+    import { Group,GroupTitle ,XInput,XButton,Toast,XHeader} from 'vux'
     import api from '../../constant/api'
     import * as types from '../../store/types';
     export default {
-        components: {Group,GroupTitle,XInput,XButton,Toast},
+        components: {Group,GroupTitle,XInput,XButton,Toast,XHeader},
         data() {
             return {
                 time:500,
@@ -66,7 +66,7 @@
         mounted () {
             if(this.$store.state.token){
                 this.$router.push({
-                    path: 'user/profile'
+                    path: '/user/profile'
                 })
             }
         }

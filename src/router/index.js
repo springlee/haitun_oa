@@ -29,18 +29,47 @@ const routes = [
                     component: (resolve) => require(['../components/user/Login.vue'], resolve),
                 },
                 {
-                    path: '/b2b/businessOpportunityList',
+                    path: '/:system/businessOpportunityList',
                     name: 'businessOpportunityList',
                     meta: {
-                        requireAuth:true
+                        requireAuth:true,
+                        authUrl:'/home/business/showlist'
                     },
                     component: (resolve) => require(['../components/b2b/businessOpportunityList'], resolve),
                 },
                 {
-                    path: '/b2b/businessOpportunityDetail/:id',
+                    path: '/:system/businessOpportunityList/keywords/:keywords/status/:status',
+                    name: 'businessOpportunityListSearch1',
+                    meta: {
+                        requireAuth:true,
+                        authUrl:'/home/business/showlist'
+                    },
+                    component: (resolve) => require(['../components/b2b/businessOpportunityList'], resolve),
+                },
+                {
+                    path: '/:system/businessOpportunityList/keywords/:keywords',
+                    name: 'businessOpportunityListSearch2',
+                    meta: {
+                        requireAuth:true,
+                        authUrl:'/home/business/showlist'
+                    },
+                    component: (resolve) => require(['../components/b2b/businessOpportunityList'], resolve),
+                },
+                {
+                    path: '/:system/businessOpportunityList/status/:status',
+                    name: 'businessOpportunityListSearch3',
+                    meta: {
+                        requireAuth:true,
+                        authUrl:'/home/business/showList'
+                    },
+                    component: (resolve) => require(['../components/b2b/businessOpportunityList'], resolve),
+                },
+                {
+                    path: '/:system/businessOpportunityDetail/:id',
                     name: 'businessOpportunityDetail',
                     meta: {
-                        requireAuth:true
+                        requireAuth:true,
+                        authUrl:'/home/business/detail'
                     },
                     component: (resolve) => require(['../components/b2b/businessOpportunityDetail'], resolve),
                 },
@@ -65,19 +94,36 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    store.commit(types.LOADING, {isLoading: true})
     if (to.matched.some(r => r.meta.requireAuth)) {
+        let system = to.params.system ? to.params.system : 'base';
         if (store.state.token) {
             let params = {
                 'token':store.state.token,
-                system:'base',
+                system:system,
                 ip:'127.0.0.1',
             }
             axios.post(api.backendUrl+api.ssoUser, qs.stringify(params))
                 .then(response => {
                     if(response.data.success){
-                        window.localStorage.user =JSON.stringify(response.data.data);
-                        next();
+                        let userInfo = response.data.data;
+                        window.localStorage.user = JSON.stringify(userInfo);
+                        if(to.meta.authUrl){
+                            if(parseInt(userInfo.role.permission) === 1){
+                                next();
+                            }else {
+                                if(userInfo.permission_urls.indexOf(to.meta.authUrl)!==-1){
+                                    next();
+                                }else {
+                                    alert('你没有权限访问！！！');
+                                    store.commit(types.LOADING, {isLoading: false})
+                                    next({
+                                        path: '/user/profile',
+                                    })
+                                }
+                            }
+                        }else {
+                            next();
+                        }
                     }else {
                         store.commit(types.LOADING, {isLoading: false})
                         next({
@@ -85,12 +131,10 @@ router.beforeEach((to, from, next) => {
                             query: {redirect: to.fullPath}
                         })
                     }
-
                 })
-
         }
         else {
-            store.commit(types.LOADING, {isLoading: false})
+            store.commit(types.LOADING, {isLoading: false});
             next({
                 path: '/user/login',
                 query: {redirect: to.fullPath}
