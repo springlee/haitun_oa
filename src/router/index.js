@@ -62,7 +62,7 @@ const routes = [
                     name: 'businessOpportunityListSearch3',
                     meta: {
                         requireAuth:true,
-                        authUrl:'/home/business/showList'
+                        authUrl:'/home/business/showlist'
                     },
                     component: (resolve) => require(['../components/b2b/businessOpportunityList'], resolve),
                 },

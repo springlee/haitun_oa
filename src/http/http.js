@@ -3,7 +3,8 @@ import store from '../store/store.js'
 import * as types from '../store/types.js'
 import router from '../router/index.js'
 
-axios.defaults.baseURL = 'http://192.168.45.10/vue/oa/?uri=';
+//axios.defaults.baseURL = 'http://192.168.45.10/vue/oa/index.php?uri=';
+axios.defaults.baseURL = 'http://spring.namet.xyz/api.php?uri=';
 
 
 // http response 拦截器

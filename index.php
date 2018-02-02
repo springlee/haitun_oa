@@ -7,7 +7,7 @@
  */
 
 define('BACKEND_URL', 'http://47.89.10.38:8001');
-define('B2B_URL', 'http://b2b.haitun.hk');
+define('B2B_URL', 'http://192.168.8.239:8484/');
 
 header('Access-Control-Allow-Origin:*');
 
