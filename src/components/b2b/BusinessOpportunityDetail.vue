@@ -16,6 +16,10 @@
                     <div>{{business.title}}</div>
                 </cell>
                 <cell primary="content" align-items="flex-start" value-align="left">
+                    <div slot="title" class="title">创建人</div>
+                    <div>{{business.user_name}}</div>
+                </cell>
+                <cell primary="content" align-items="flex-start" value-align="left">
                     <div slot="title" class="title">商机状态</div>
                     <div  v-if="business.status===0 && business.process===0 "
                          class="status-title-lock">{{business.statusTxt}}
