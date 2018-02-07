@@ -4,7 +4,7 @@ import * as types from '../store/types.js'
 import router from '../router/index.js'
 
 //axios.defaults.baseURL = 'http://192.168.45.10/vue/oa/index.php?uri=';
-axios.defaults.baseURL = 'http://moa.haitun.hk/api.php?uri=';
+axios.defaults.baseURL = 'https://moa.haitun.hk/api.php?uri=';
 
 
 // http response 拦截器
